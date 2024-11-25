@@ -23,6 +23,10 @@ buses/default_bus_layout=""
 
 UserInterface="*res://UI/UserInterface.tscn"
 
+[editor]
+
+movie_writer/movie_file="/home/drotter3000/Videos/Aufnahmen/TheConvention.avi"
+
 [input]
 
 move_left={
