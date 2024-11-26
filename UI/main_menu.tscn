@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnf8hyjqidd4t"]
+
+[ext_resource type="Script" path="res://UI/main_menu.gd" id="1_8tonr"]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8tonr")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="How to play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "How to Play"
+
+[node name="Fullscreen" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Full Screen"
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/How to play" to="." method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
