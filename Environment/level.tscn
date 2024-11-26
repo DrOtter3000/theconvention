@@ -13,6 +13,7 @@ sky_material = SubResource("ProceduralSkyMaterial_e0jkh")
 [sub_resource type="Environment" id="Environment_l1sbo"]
 background_mode = 2
 sky = SubResource("Sky_cqqgn")
+ambient_light_sky_contribution = 0.1
 tonemap_mode = 2
 
 [node name="Level" type="Node3D"]
