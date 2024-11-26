@@ -1,20 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://cavub642ldx7s"]
 
 [ext_resource type="Script" path="res://NPC/villager.gd" id="1_kaqef"]
+[ext_resource type="PackedScene" uid="uid://dwp4luis4v3fn" path="res://NPC/Villager.glb" id="2_5xadg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c4dse"]
 radius = 0.3
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_rimai"]
-radius = 0.3
-
 [node name="Villager" type="CharacterBody3D"]
 script = ExtResource("1_kaqef")
+available_positions = [Vector3(53, 0, 0), Vector3(53, 0, 28), Vector3(-3, 0, 27), Vector3(-3, 0, -27), Vector3(-27, 0, -27), Vector3(-27, 0, 27), Vector3(-52, 0, 27), Vector3(-52, 0, -28)]
+
+[node name="Villager" parent="." instance=ExtResource("2_5xadg")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_c4dse")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_rimai")
