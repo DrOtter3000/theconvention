@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://cavub642ldx7s"]
+[gd_scene load_steps=16 format=4 uid="uid://cavub642ldx7s"]
 
 [ext_resource type="Script" path="res://NPC/villager.gd" id="1_kaqef"]
 
@@ -187,6 +187,37 @@ shadow_mesh = SubResource("ArrayMesh_v1snd")
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c4dse"]
 radius = 0.3
 
+[sub_resource type="Curve" id="Curve_va2nf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.81555, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vbp78"]
+curve = SubResource("Curve_va2nf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xuf8g"]
+emission_shape_scale = Vector3(1, 0.25, 1)
+emission_shape = 1
+emission_sphere_radius = 0.4
+gravity = Vector3(0, 1, 0)
+damping_max = 1.0
+scale_min = 0.2
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_vbp78")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlcne"]
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.796078, 0.796078, 0.796078, 1)
+emission_enabled = true
+emission = Color(0.796078, 0.796078, 0.796078, 1)
+emission_energy_multiplier = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_5hjdq"]
+material = SubResource("StandardMaterial3D_vlcne")
+radial_segments = 16
+rings = 8
+
 [node name="Villager" type="CharacterBody3D" groups=["villager"]]
 collision_layer = 2
 collision_mask = 5
@@ -206,3 +237,10 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_c4dse")
+
+[node name="RunParticles" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+amount = 32
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_xuf8g")
+draw_pass_1 = SubResource("SphereMesh_5hjdq")

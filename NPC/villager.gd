@@ -12,6 +12,7 @@ var list_of_target_positions = []
 @export var position_3: Node
 @export var position_4: Node
 
+@onready var run_particles: GPUParticles3D = $RunParticles
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -28,7 +29,10 @@ func _process(delta):
 	var total_speed = speed
 	
 	if in_panic:
+		run_particles.emitting = true
 		total_speed *= speed_multiplier
+	else:
+		run_particles.emitting = false
 	
 	nav.target_position = target_position.global_position
 	
@@ -56,9 +60,6 @@ func set_new_target_position():
 
 
 func start_panic(furry_position):
-	var pos_x = 53
-	var pos_z = 27
-	
 	if furry_position.x > global_position.x:
 		if furry_position.z < global_position.z:
 			target_position = position_3
