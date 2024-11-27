@@ -1,5 +1,3 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnf8hyjqidd4t"]
-
 [ext_resource type="Script" path="res://UI/main_menu.gd" id="1_8tonr"]
 [ext_resource type="Texture2D" uid="uid://bkrblri4gdljl" path="res://UI/all-out-attacks-finish-screen-for-all-characters-makes-for-v0-c77nrbg3k2ic1.webp" id="2_8opwc"]
 [ext_resource type="Script" path="res://UI/fullscreen.gd" id="2_dxi1q"]
