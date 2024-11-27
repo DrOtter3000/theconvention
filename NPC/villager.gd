@@ -1,40 +1,49 @@
 extends CharacterBody3D
 
-var speed = 4.9
-
 
 var target_position = Vector3.ZERO
 var list_of_target_positions = []
 
+@export var speed = 3
+@export var speed_multiplier = 2
+
+@export var position_1: Node
+@export var position_2: Node
+@export var position_3: Node
+@export var position_4: Node
+
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 
-var in_line_of_sight : bool
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var in_panic = false
 
 
 func _ready():
-	randomize()
 	list_of_target_positions = get_node("../TargetPositions").get_children()
 	set_new_target_position()
 
 
 func _process(delta):
-	speed = 2
 	var direction = Vector3()
-			
+	var total_speed = speed
+	
+	if in_panic:
+		total_speed *= speed_multiplier
+	
 	nav.target_position = target_position.global_position
 	
 	direction = nav.get_next_path_position() - global_position
 	direction.y = 0
 	direction = direction.normalized()
 	
-	velocity = direction * (speed)
+	velocity = direction * total_speed
 	velocity.y -= gravity * delta
 	
 	var look_direction = -Vector2(velocity.z, velocity.x)
 	$Villager.rotation.y = look_direction.angle()
 	
 	if nav.is_navigation_finished():
+		in_panic = false
 		set_new_target_position()
 
 	velocity.y -= gravity * delta
@@ -42,4 +51,23 @@ func _process(delta):
 
 
 func set_new_target_position():
+	randomize()
 	target_position = list_of_target_positions.pick_random()
+
+
+func start_panic(furry_position):
+	var pos_x = 53
+	var pos_z = 27
+	
+	if furry_position.x > global_position.x:
+		if furry_position.z < global_position.z:
+			target_position = position_3
+		else:
+			target_position = position_1
+	else:
+		if furry_position.z < global_position.z:
+			target_position = position_4
+		else:
+			target_position = position_2
+	
+	in_panic = true

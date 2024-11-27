@@ -187,7 +187,9 @@ shadow_mesh = SubResource("ArrayMesh_v1snd")
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c4dse"]
 radius = 0.3
 
-[node name="Villager" type="CharacterBody3D"]
+[node name="Villager" type="CharacterBody3D" groups=["villager"]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_kaqef")
 
 [node name="Villager" type="Node3D" parent="."]

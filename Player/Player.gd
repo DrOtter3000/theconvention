@@ -180,3 +180,9 @@ func smooth_camera_zoom(delta: float) -> void:
 func _on_footstep_timer_timeout() -> void:
 	if is_on_floor() and get_movement_direction():
 		run_audio.play()
+
+
+func _on_panic_area_body_entered(body: Node3D) -> void:
+	if body.is_in_group("villager"):
+		print(body)
+		body.start_panic(global_position)

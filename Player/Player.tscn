@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://vwr8ajoufse8"]
+[gd_scene load_steps=35 format=4 uid="uid://vwr8ajoufse8"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_12if5"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_e12si"]
@@ -304,6 +304,10 @@ random_volume_offset_db = 0.5
 streams_count = 1
 stream_0/stream = ExtResource("4_0mhnh")
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5t70q"]
+height = 1.0
+radius = 5.0
+
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 floor_max_angle = 0.872665
 script = ExtResource("1_12if5")
@@ -387,4 +391,14 @@ pitch_scale = 2.0
 wait_time = 0.2
 autostart = true
 
+[node name="PanicArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.01756, 0)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PanicArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09635, 0)
+shape = SubResource("CylinderShape3D_5t70q")
+
 [connection signal="timeout" from="Audio/FootstepTimer" to="." method="_on_footstep_timer_timeout"]
+[connection signal="body_entered" from="PanicArea" to="." method="_on_panic_area_body_entered"]
