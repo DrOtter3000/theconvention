@@ -1,14 +1,14 @@
 extends Control
 
 func _on_play_pressed() -> void:
-	get_tree().pass()
+	pass # Replace with function body.
 
 func _on_how_to_play_pressed() -> void:
 	pass # Replace with function body.
 
 
 func _on_fullscreen_pressed() -> void:
-	pass # Replace with function body.
+	OS.window_fullscreen = !OS.window_fullscreen
 
 
 func _on_quit_pressed() -> void:
