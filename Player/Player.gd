@@ -29,6 +29,11 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 # Stores the direction the player is trying to look this frame.
 var _look := Vector2.ZERO
 
+@onready var convince_timer: Timer = $ConvinceTimer
+
+var ready_to_convince = false
+var convincing = false
+
 enum VIEW {
 	FIRST_PERSON,
 	THIRD_PERSON_BACK
@@ -75,12 +80,23 @@ var zoom := min_zoom:
 @onready var jump_audio: AudioStreamPlayer3D = %JumpAudio
 @onready var run_audio: AudioStreamPlayer3D = %RunAudio
 
+@onready var ray_cast_3d: RayCast3D = $RayCast3D
+@onready var convince_message: Control = $ConvinceMessage
+
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	# Whenever the player loads in, give the autoload ui a reference to itself.
 	UserInterface.update_player(self)
 
+
+func _process(delta: float) -> void:
+	check_if_convincable()
+	if Input.is_action_just_pressed("interact"):
+		if ready_to_convince:
+			ray_cast_3d.get_collider().get_convinced()
+			convince_timer.start()
+			convincing = true
 
 func _physics_process(delta: float) -> void:
 	frame_camera_rotation()
@@ -116,12 +132,18 @@ func _physics_process(delta: float) -> void:
 	run_particles.emitting = not direction.is_zero_approx() and is_on_floor()
 		
 	update_animation_tree()
+	
+	if convincing:
+		velocity = Vector3.ZERO
+		
 	move_and_slide()
+
 
 # Turn movent inputs into a locally oriented vector.
 func get_movement_direction() -> Vector3:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	return (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
 	
 # Apply the _look variables rotation to the camera.
 func frame_camera_rotation() -> void:
@@ -176,6 +198,17 @@ func smooth_camera_zoom(delta: float) -> void:
 		delta * 10.0
 	)
 
+
+func check_if_convincable():
+	var collider = ray_cast_3d.get_collider()
+	if collider == null:
+		ready_to_convince = false
+		get_tree().call_group("HUD", "update_convince_label", false)
+	else:
+		ready_to_convince = true
+		get_tree().call_group("HUD", "update_convince_label", true)
+
+
 # Play a footstep sound effect when moving.
 func _on_footstep_timer_timeout() -> void:
 	if is_on_floor() and get_movement_direction():
@@ -184,5 +217,8 @@ func _on_footstep_timer_timeout() -> void:
 
 func _on_panic_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("villager"):
-		print(body)
 		body.start_panic(global_position)
+
+
+func _on_convince_timer_timeout() -> void:
+	convincing = false

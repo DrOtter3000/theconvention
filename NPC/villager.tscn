@@ -244,3 +244,9 @@ amount = 32
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_xuf8g")
 draw_pass_1 = SubResource("SphereMesh_5hjdq")
+
+[node name="ConvinceTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="ConvinceTimer" to="." method="_on_convince_timer_timeout"]

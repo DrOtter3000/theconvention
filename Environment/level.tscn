@@ -93,3 +93,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.7308, 0, 27.3079)
 
 [node name="Marker3D10" type="Marker3D" parent="Villagers/TargetPositions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.17916, 0, 0.0359402)
+
+[node name="HomePositions" type="Node3D" parent="Villagers"]
+
+[node name="Marker3D" type="Marker3D" parent="Villagers/HomePositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.6236, 0, -21.3994)
+
+[node name="Marker3D2" type="Marker3D" parent="Villagers/HomePositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.3772, 0, -22.7885)
+
+[node name="Marker3D3" type="Marker3D" parent="Villagers/HomePositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.6162, 0, -26.368)
+
+[node name="Marker3D4" type="Marker3D" parent="Villagers/HomePositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6543, 0, 4.77444)
+
+[node name="Marker3D5" type="Marker3D" parent="Villagers/HomePositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.6653, 0, 5.35114)
+
+[node name="Marker3D6" type="Marker3D" parent="Villagers/HomePositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5119, 0, 24.7286)
+
+[node name="Marker3D7" type="Marker3D" parent="Villagers/HomePositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.8132, 0, 9.50346)
+
+[node name="Marker3D8" type="Marker3D" parent="Villagers/HomePositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.7272, 0, 5.35114)
+
+[node name="Marker3D9" type="Marker3D" parent="Villagers/HomePositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.1505, 0, -33.0578)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=35 format=4 uid="uid://vwr8ajoufse8"]
+[gd_scene load_steps=39 format=4 uid="uid://vwr8ajoufse8"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_12if5"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_e12si"]
 [ext_resource type="AudioStream" uid="uid://c4prdjc6y4kw2" path="res://Audio/jump.ogg" id="3_wfp7i"]
 [ext_resource type="AudioStream" uid="uid://ds5ewrd6b3tip" path="res://Audio/tap.ogg" id="4_0mhnh"]
+[ext_resource type="PackedScene" uid="uid://r23uotsvgw8o" path="res://UI/hud.tscn" id="5_0a2in"]
 
 [sub_resource type="Animation" id="Animation_i4k0q"]
 resource_name = "Idle"
@@ -214,7 +215,7 @@ shadow_mesh = SubResource("ArrayMesh_usfag")
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.81555, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_vbp78"]
+[sub_resource type="CurveTexture" id="CurveTexture_s4xtr"]
 curve = SubResource("Curve_p02jg")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c2uhr"]
@@ -225,9 +226,9 @@ gravity = Vector3(0, 1, 0)
 damping_max = 1.0
 scale_min = 0.2
 scale_max = 0.4
-scale_curve = SubResource("CurveTexture_vbp78")
+scale_curve = SubResource("CurveTexture_s4xtr")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlcne"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lcr2a"]
 diffuse_mode = 3
 specular_mode = 1
 vertex_color_use_as_albedo = true
@@ -237,9 +238,16 @@ emission = Color(0.796078, 0.796078, 0.796078, 1)
 emission_energy_multiplier = 0.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_jdvgd"]
-material = SubResource("StandardMaterial3D_vlcne")
+material = SubResource("StandardMaterial3D_lcr2a")
 radial_segments = 16
 rings = 8
+
+[sub_resource type="Curve" id="Curve_va2nf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.81555, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vbp78"]
+curve = SubResource("Curve_va2nf")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wnt7s"]
 emission_shape_scale = Vector3(1, 0.25, 1)
@@ -255,6 +263,15 @@ damping_max = 6.0
 scale_min = 0.2
 scale_max = 0.4
 scale_curve = SubResource("CurveTexture_vbp78")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlcne"]
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.796078, 0.796078, 0.796078, 1)
+emission_enabled = true
+emission = Color(0.796078, 0.796078, 0.796078, 1)
+emission_energy_multiplier = 0.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_v6snp"]
 material = SubResource("StandardMaterial3D_vlcne")
@@ -395,10 +412,22 @@ autostart = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.01756, 0)
 collision_layer = 4
 collision_mask = 2
+monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PanicArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09635, 0)
 shape = SubResource("CylinderShape3D_5t70q")
 
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.178718)
+collision_mask = 2
+
+[node name="HUD" parent="." instance=ExtResource("5_0a2in")]
+
+[node name="ConvinceTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="Audio/FootstepTimer" to="." method="_on_footstep_timer_timeout"]
 [connection signal="body_entered" from="PanicArea" to="." method="_on_panic_area_body_entered"]
+[connection signal="timeout" from="ConvinceTimer" to="." method="_on_convince_timer_timeout"]
